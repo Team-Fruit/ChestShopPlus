@@ -1,6 +1,6 @@
-name: Chestshopplus
+name: ChestShopPlus
 version: ${project.version}
-main: net.ciebus.chestshopplus.Chestshopplus
+main: net.ciebus.chestshopplus.ChestShopPlus
 api-version: 1.15
 authors: [kokoa0429]
 description: Chestshopplus
