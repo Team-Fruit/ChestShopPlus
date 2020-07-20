@@ -5,6 +5,7 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
 import java.math.BigDecimal;
+import java.util.UUID;
 
 @DatabaseTable(tableName = "shops")
 // @DatabaseFileName("shops.db")
@@ -16,7 +17,7 @@ public class Shop {
     @DatabaseField
     private String location;
     @DatabaseField
-    private String owner;
+    private UUID owner;
     @DatabaseField
     private String itemName;
     @DatabaseField
@@ -29,7 +30,7 @@ public class Shop {
     public Shop () {
     }
 
-    public Shop(int id,String worldName,String location,String owner,String itemName,int amount,double sellPrice,double buyPrice) {
+    public Shop(int id,String worldName,String location,UUID owner,String itemName,int amount,double sellPrice,double buyPrice) {
         this.id = id;
         this.worldName = worldName;
         this.location = location;
@@ -45,7 +46,13 @@ public class Shop {
         return "Shop [id=" + id + ", location=" + worldName + ":" + location + ", owner=" + owner + ", itemName=" + itemName + ", amount=" + amount + ", sellPrice=" + sellPrice + ", buyPrice=" + buyPrice + "]";
     }
 
-    public void setShop(String worldName,String location,String owner,String itemName, String amount) {
+    public void setShop(String worldName,String location,UUID owner,String itemName, int amount,double sellPrice,double buyPrice) {
+        this.worldName = worldName;
         this.location = location;
+        this.owner = owner;
+        this.itemName = itemName;
+        this.amount = amount;
+        this.sellPrice = sellPrice;
+        this.buyPrice = buyPrice;
     }
 }

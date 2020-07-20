@@ -8,6 +8,7 @@ import com.j256.ormlite.table.TableUtils;
 import net.ciebus.chestshopplus.Database.ConnectionManager;
 import net.ciebus.chestshopplus.Database.Shop;
 import net.ciebus.chestshopplus.Database.SqliteDatabaseType;
+import net.ciebus.chestshopplus.Database.Transaction;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -18,6 +19,9 @@ public final class ChestShopPlus extends JavaPlugin  {
 
     private static File dataFolder;
 
+    public static ConnectionSource shopConnectionSource;
+    public static ConnectionSource transactionConnectionSource;
+
     public ChestShopPlus() {
         dataFolder = getDataFolder();
     }
@@ -26,21 +30,21 @@ public final class ChestShopPlus extends JavaPlugin  {
     public void onEnable() {
         // Plugin startup logic
         getServer().getPluginManager().registerEvents(new ChestShopListener(), this);
-        System.out.println("hisushi");
 
-        String uri = ConnectionManager.getURI(ChestShopPlus.loadFile("test.db"));
+        String shopURI = ConnectionManager.getURI(ChestShopPlus.loadFile("shops.db"));
+        String transactionURI = ConnectionManager.getURI(ChestShopPlus.loadFile("transactions.db"));
 
-        ConnectionSource connectionSource = null;
+        // ConnectionSource connectionSource = null;
         try {
-            connectionSource = new JdbcConnectionSource(uri, new SqliteDatabaseType());
-            Dao<Shop, String> shopDao =
-                    DaoManager.createDao(connectionSource, Shop.class);
-            TableUtils.createTable(connectionSource, Shop.class);
-            Shop shop = new Shop();
-            // shop.setLocation("testLocation");
-            shopDao.create(shop);
-            connectionSource.close();
-        } catch (SQLException | IOException throwables) {
+            shopConnectionSource = new JdbcConnectionSource(shopURI, new SqliteDatabaseType());
+            transactionConnectionSource = new JdbcConnectionSource(transactionURI, new SqliteDatabaseType());
+
+            // Dao<Shop, String> shopDao = DaoManager.createDao(shopConnectionSource, Shop.class);
+            // Dao<Transaction, String> transationDao = DaoManager.createDao(transactionConnectionSource, Transaction.class);
+            TableUtils.createTable(shopConnectionSource, Shop.class);
+            TableUtils.createTable(transactionConnectionSource, Transaction.class);
+
+        } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
 
@@ -49,7 +53,14 @@ public final class ChestShopPlus extends JavaPlugin  {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        try {
+            shopConnectionSource.close();
+            transactionConnectionSource.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
 
     public static File loadFile(String string) {
         File file = new File(dataFolder, string);
