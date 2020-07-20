@@ -37,7 +37,7 @@ public final class ChestShopPlus extends JavaPlugin  {
                     DaoManager.createDao(connectionSource, Shop.class);
             TableUtils.createTable(connectionSource, Shop.class);
             Shop shop = new Shop();
-            shop.setLocation("testLocation");
+            // shop.setLocation("testLocation");
             shopDao.create(shop);
             connectionSource.close();
         } catch (SQLException | IOException throwables) {

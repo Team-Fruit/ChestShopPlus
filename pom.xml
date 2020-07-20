@@ -42,7 +42,7 @@
                             <relocations>
                                 <relocation>
                                     <pattern>com.j256.ormlite</pattern>
-                                    <shadedPattern>net.ciebus.chestshopplus.ormlite</shadedPattern>
+                                    <shadedPattern>com.Acrobot.ChestShop.ORMlite</shadedPattern>
                                 </relocation>
                             </relocations>
                         </configuration>
