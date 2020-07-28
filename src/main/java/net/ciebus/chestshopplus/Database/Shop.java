@@ -55,4 +55,8 @@ public class Shop {
         this.sellPrice = sellPrice;
         this.buyPrice = buyPrice;
     }
+
+    public int getShopId() {
+        return this.id;
+    }
 }

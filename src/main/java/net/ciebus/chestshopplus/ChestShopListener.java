@@ -53,7 +53,10 @@ public class ChestShopListener implements Listener {
     public void onShopTransaction(TransactionEvent evt) throws SQLException {
         Dao<Transaction,String> transationDao = DaoManager.createDao(ChestShopPlus.transactionConnectionSource,Transaction.class);
         Transaction transaction = new Transaction();
-        transaction.setTransaction(334,evt.getClient().get,"BUY",234,new Date());
+        Dao<Shop, String> shopDao = DaoManager.createDao(ChestShopPlus.shopConnectionSource, Shop.class);
+        Sign sign = evt.getSign();
+        List<Shop> shops = shopDao.queryBuilder().where().eq("worldName",sign.getBlock().getWorld().getName()).and().eq("location",sign.getX() + ":" + sign.getY() + ":" + sign.getZ()).query(); //queryForEq("worldName",sign.getBlock().getWorld().getName())
+        transaction.setTransaction(shops.get(0).getShopId(),evt.getClient().getUniqueId(),evt.getTransactionType() == TransactionEvent.TransactionType.BUY ? "BUY" : "SELL",evt.getStock()[0].getAmount(),new Date());
         transationDao.create(transaction);
     }
 
