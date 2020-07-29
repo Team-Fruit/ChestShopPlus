@@ -11,21 +11,21 @@ import java.util.UUID;
 // @DatabaseFileName("shops.db")
 public class Shop {
     @DatabaseField(generatedId=true)
-    private int id;
+    public int id;
     @DatabaseField
-    private String worldName;
+    public String worldName;
     @DatabaseField
-    private String location;
+    public String location;
     @DatabaseField
-    private UUID owner;
+    public UUID owner;
     @DatabaseField
-    private String itemName;
+    public String itemName;
     @DatabaseField
-    private int amount;
+    public int amount;
     @DatabaseField
-    private double  sellPrice;
+    public double  sellPrice;
     @DatabaseField
-    private double buyPrice;
+    public double buyPrice;
 
     public Shop () {
     }

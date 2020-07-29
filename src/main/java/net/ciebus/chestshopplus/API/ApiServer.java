@@ -27,28 +27,30 @@ public class ApiServer {
 
         ServletContextHandler servletHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
 
-        // set max size of form contents
+        // set max size of form contentse
         servletHandler.setMaxFormContentSize(1024 * 1024 * 1024);
 
-        servletHandler.addServlet(new ServletHolder(new ExampleServlet()), "/api");
+        servletHandler.addServlet(new ServletHolder(new ExampleServlet()), "/shop");
+        servletHandler.addServlet(new ServletHolder(new ExampleServlet()), "/shop");
+        servletHandler.addServlet(new ServletHolder(new ExampleServlet()), "/transaction");
 
-        final ResourceHandler resourceHandler = new ResourceHandler();
+        // final ResourceHandler resourceHandler = new ResourceHandler();
 
         // set content dir
-        resourceHandler.setResourceBase(System.getProperty("user.dir") + "/htdocs");
+        // resourceHandler.setResourceBase(System.getProperty("user.dir") + "/htdocs");
 
         // hide file listings
-        resourceHandler.setDirectoriesListed(false);
+        // resourceHandler.setDirectoriesListed(false);
 
         // set welcome files
-        resourceHandler.setWelcomeFiles(new String[] { "index.html" });
+        // resourceHandler.setWelcomeFiles(new String[] { "index.html" });
 
         // no cache
-        resourceHandler.setCacheControl("no-store,no-cache,must-revalidate");
+        // resourceHandler.setCacheControl("no-store,no-cache,must-revalidate");
 
         // setup Server and Handler List
         HandlerList handlerList = new HandlerList();
-        handlerList.addHandler(resourceHandler);
+        // handlerList.addHandler(resourceHandler);
         handlerList.addHandler(servletHandler);
 
         final Server jettyServer = new Server();
@@ -81,7 +83,7 @@ public class ApiServer {
 
         final class Result {
             public boolean success;
-            public Shop shopList[];
+            public Object shopList[];
         }
 
         @Override
@@ -94,11 +96,9 @@ public class ApiServer {
             final Result result = new Result();
             result.success = true;
 
-            Dao<Shop, String> shopDao =
-                    null;
             try {
-                shopDao = DaoManager.createDao(ChestShopPlus.shopConnectionSource, Shop.class);
-                result.shopList = (Shop)shopDao.queryBuilder().where().query().toArray(); //queryForEq("worldName",sign.getBlock().getWorld().getName())
+                Dao<Shop, String> shopDao = DaoManager.createDao(ChestShopPlus.shopConnectionSource, Shop.class);
+                result.shopList = shopDao.queryBuilder().query().toArray(); //queryForEq("worldName",sign.getBlock().getWorld().getName())
             } catch (SQLException throwables) {
                 throwables.printStackTrace();
             }
