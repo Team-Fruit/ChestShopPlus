@@ -1,0 +1,61 @@
+openapi: 3.0.0
+info:
+  title: chestshopplus-v1
+  version: '1.0'
+  description: |
+    CSP v1 API
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /shop:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-shop
+      description: get shop infomation
+  '/shop/search/{query}':
+    parameters:
+      - schema:
+          type: string
+        name: query
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-shop-search-query
+  /transaction:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-transaction
+      description: 'get transaction '
+  '/transaction/{id*1000}':
+    parameters:
+      - schema:
+          type: string
+        name: 'id*1000'
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: 'get-transaction-id*1000'
+  '/transation/search/{query}':
+    parameters:
+      - schema:
+          type: string
+        name: query
+        in: path
+        required: true
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses: {}
+      operationId: get-transation-search-query
+components:
+  schemas: {}
