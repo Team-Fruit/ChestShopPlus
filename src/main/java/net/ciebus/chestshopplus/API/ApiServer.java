@@ -31,7 +31,7 @@ public class ApiServer {
         servletHandler.setMaxFormContentSize(1024 * 1024 * 1024);
 
         servletHandler.addServlet(new ServletHolder(new ExampleServlet()), "/shop");
-        servletHandler.addServlet(new ServletHolder(new ExampleServlet()), "/shop");
+        // servletHandler.addServlet(new ServletHolder(new ExampleServlet()), "/shop");
         servletHandler.addServlet(new ServletHolder(new ExampleServlet()), "/transaction");
 
         // final ResourceHandler resourceHandler = new ResourceHandler();

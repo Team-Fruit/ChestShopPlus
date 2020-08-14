@@ -57,7 +57,7 @@ public final class ChestShopPlus extends JavaPlugin  {
             throwables.printStackTrace();
         }
 
-        ApiServer api = new ApiServer();
+        //ApiServer api = new ApiServer();
 
 
     }
